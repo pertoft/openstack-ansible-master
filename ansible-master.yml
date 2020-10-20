@@ -1,12 +1,16 @@
 ---
     - hosts: localhost
+      vars:
+        - openstack_ansible_major: ussuri
+        - openstack_ansible_tag: 21.0.1
+
       tasks:
         - name: Build openstack ansible master docker image
           docker_image:
             build:
-                path: ./openstack-ansible-ussuri/
-            name: ansible-master-ussuri
-            tag: 21.0.1
+                path: "./openstack-ansible-{{openstack_ansible_major}}/"
+            name: "ansible-master-{{openstack_ansible_major}}"
+            tag: "{{openstack_ansible_tag}}"
             #push: yes
             source: build
 
