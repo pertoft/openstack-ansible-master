@@ -1,10 +1,9 @@
 ---
-    - hosts: localhost
-      vars:
-        - openstack_ansible_major: ussuri
-        - openstack_ansible_tag: 21.0.1
-
-      tasks:
+  - hosts: localhost
+    vars:
+      - openstack_ansible_major: ussuri
+      - openstack_ansible_tag: 21.0.1
+    tasks:
         - name: Build openstack ansible master docker image
           docker_image:
             build:
@@ -14,25 +13,9 @@
             #push: yes
             source: build
 
-        # - name: Run  container
-        #     docker_container:
-        #         name: 'database'
-        #         image: 'docker.io/centos/postgresql-96-centos7'
-        #         state: 'started'
-        #         env:
-        #             POSTGRESQL_USER: 'user'
-        #             POSTGRESQL_PASSWORD: 'password'
-        #             POSTGRESQL_DATABASE: 'my_db'
-        #         register: db_cont_metadata
-        # - name: Wait for postgres to accept connections
-        #     wait_for:
-        #     host: '{{ db_cont_metadata["ansible_facts"]["docker_container"]["NetworkSettings"]["IPAddress"] }}'
-        #     port: 5432
-        #     state: drained
-        #     connect_timeout: 1
-        #     timeout: 30
-        #     register: postgres_running
-        #     until: postgres_running is success
-        #     retries: 10
-        # - name: Populate database
-        # command: ./manage.py migrate
+        - name: Run ansibe-master container
+          docker_container:
+            name: "ansible-master-{{openstack_ansible_major}}"
+            image: "ansible-master-{{openstack_ansible_major}}:latest"
+            state: 'started'
+            register: ansible_master
