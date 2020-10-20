@@ -3,6 +3,7 @@
     vars:
       - openstack_ansible_major: ussuri
       - openstack_ansible_tag: 21.0.1
+      - openstack_env: production
     tasks:
         - name: Build openstack ansible master docker image
           docker_image:
@@ -16,8 +17,8 @@
 
         - name: Run ansibe-master container
           docker_container:
-            name: "ansible-master-{{openstack_ansible_major}}"
-            image: "ansible-master-{{openstack_ansible_major}}:latest"
+            name: "ansible-master-{{openstack_ansible_major}}-{{openstack_env}}"
+            image: "ansible-master-{{openstack_ansible_major}}-{{openstack_env}}:{{openstack_ansible_tag}}"
             state: 'started'
             volumes:
                 - ./production/openstack-config/:/etc/openstack_deploy/
