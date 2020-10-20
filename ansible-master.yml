@@ -20,3 +20,8 @@
             image: "ansible-master-{{openstack_ansible_major}}:latest"
             state: 'started'
             register: ansible_master
+            volumes:
+                - ./production/openstack-config/:/etc/openstack_deploy/
+                - ./production/secrets/ssh:/root/.ssh/
+                - ./production/secrets/ceph-keyring:/etc/openstack/ceph-keyring/
+                - ./production/root:/root/
