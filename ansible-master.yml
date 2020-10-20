@@ -1,10 +1,10 @@
 ---
     - hosts: localhost
       tasks:
-        - name: Build an image and push it to a private repo
+        - name: Build openstack ansible master docker image
           docker_image:
             build:
-                path: ./openstack-ansible-ussiri/
+                path: ./openstack-ansible-ussuri/
             name: ansible-master-ussuri
             tag: 21.0.1
             #push: yes
