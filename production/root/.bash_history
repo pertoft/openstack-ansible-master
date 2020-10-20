@@ -1,0 +1,13 @@
+sl -al/etc/openstack_deploy/inventory.ini
+ls -al/etc/openstack_deploy/inventory.ini
+cat /etc/openstack_deploy/inventory.ini
+ls -al/etc/openstack_deploy/inventory.ini
+cat /etc/openstack_deploy/inventory.ini
+cd /etc/openstack/ceph-keyring/
+ls -al
+cat cinder.keyring 
+ls -al
+cat cinder-backup.keyring 
+ls -al
+cat glance.keyring 
+ls -al

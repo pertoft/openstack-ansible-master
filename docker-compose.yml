@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  ansible-master-staging-ussuri: 
+    container_name: ansible-master-staging-ussuri
+    hostname: ansible-master-staging-ussuri
+    image: ansible-master-ussuri:18.1.9
+    build:
+      context: openstack-ansible-ussuri
+    volumes:
+      - ./staging/openstack-config/:/etc/openstack_deploy/
+      - ./staging/secrets/ssh:/root/.ssh/
+      - ./staging/secrets/ceph-keyring:/etc/openstack/ceph-keyring/
+      - ./staging/root:/root/
+    restart: always
+
+  ansible-master-production: 
+     container_name: ansible-master-production
+     hostname: ansible-master-production
+     image: ansible-master-queens:17.1.12
+     build:
+       context: openstack-ansible-queens
+     volumes:
+       - ./production/openstack-config/:/etc/openstack_deploy/
+       - ./production/secrets/ssh:/root/.ssh/
+       - ./production/secrets/openstack/user_secrets.yml:/etc/openstack_deploy/user_secrets.yml
+       - ./production/secrets/ceph-keyring:/etc/openstack/ceph-keyring/
+       - ./production/root:/root/
+     restart: always
