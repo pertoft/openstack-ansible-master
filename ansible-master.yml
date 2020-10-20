@@ -8,6 +8,7 @@
           docker_image:
             build:
                 path: "./openstack-ansible-{{openstack_ansible_major}}/"
+            pull: yes
             name: "ansible-master-{{openstack_ansible_major}}"
             tag: "{{openstack_ansible_tag}}"
             #push: yes
