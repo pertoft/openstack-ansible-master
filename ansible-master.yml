@@ -19,7 +19,6 @@
             name: "ansible-master-{{openstack_ansible_major}}"
             image: "ansible-master-{{openstack_ansible_major}}:latest"
             state: 'started'
-            register: ansible_master
             volumes:
                 - ./production/openstack-config/:/etc/openstack_deploy/
                 - ./production/secrets/ssh:/root/.ssh/
