@@ -1,9 +1,9 @@
 # OpenStack-Ansible-Master
 
-Docker build files for OpenStack Ansible deploymenet for production and pilot.
+Ansible Docker build files for OpenStack Ansible deploymenet for production and pilot.
 
-# Boot containers
-`docker-compose up -d`
+#Build containers
+`ansible-playbook ansible-master-deploy.yml`
 
 # Access containers
-`docker exec -it ansible-master-pilot`
+`docker exec -it ansible-master-ussuri-production`
