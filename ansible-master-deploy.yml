@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars:
+    - openstack_ansible_major: ussuri
+    - openstack_ansible_branch: stable/ussuri
+    - openstack_ansible_tag: "stable"
+    - openstack_env: production
+    - openstack_volume_dir: /Users/pto/test
+  roles:
+    - ansible-master

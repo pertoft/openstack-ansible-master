@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-master
+packages: aptitude build-essential git chrony openssh-server python3-dev sudo git vim nano inetutils-ping tcpdump
+
+volumes:
+    - "{{ openstack_volume_dir | default('.') }}/{{openstack_env}}/openstack-config/:/etc/openstack_deploy/"
+    - "{{ openstack_volume_dir | default('.') }}/{{openstack_env}}/secrets/ssh:/root/.ssh/"
+    - "{{ openstack_volume_dir | default('.') }}/{{openstack_env}}/secrets/ceph-keyring:/etc/openstack/ceph-keyring/"
+    - "{{ openstack_volume_dir | default('.') }}/{{openstack_env}}/root:/root/"

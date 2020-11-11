@@ -1,4 +1,5 @@
-FROM ubuntu:16.04
+#Ansible managed
+FROM ubuntu:20.04
 
 #Update ubuntu repo to danish mirror
 RUN sed -i 's|http://archive.ubuntu.com|http://dk.archive.ubuntu.com|g' /etc/apt/sources.list
@@ -8,18 +9,16 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 ENV LANG en_US.utf8
 
 #Install openstack ansible requried packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-   aptitude build-essential git ntp ntpdate openssh-server python-dev sudo git vim nano inetutils-ping
-
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y {{packages}}
 
 RUN mkdir -p /opt/openstack-ansible
 
 #Clone OpenstackAnsible repo
 
-RUN git clone -b 17.1.12 https://git.openstack.org/openstack/openstack-ansible /opt/openstack-ansible
+RUN git clone -b {{openstack_ansible_branch}} https://opendev.org/openstack/openstack-ansible /opt/openstack-ansible
 
 #Bootstrap 
 RUN cd /opt/openstack-ansible ; scripts/bootstrap-ansible.sh
 
-#Dummy entryp - Access to the container is done with 'docker exec -it container bash'
+#Dummy entry - Access to the container is done with 'docker exec -it container bash'
 ENTRYPOINT tail -f /dev/null

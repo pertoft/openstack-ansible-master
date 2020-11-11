@@ -1,0 +1,39 @@
+---
+- name: Create build directory
+  file:
+      path: work/
+      state: directory
+
+- name: Generate Dockerfile
+  template:
+    src: templates/Dockerfile.j2
+    dest: work/Dockerfile
+
+- name: Build openstack ansible master docker image. This takes a long time
+  docker_image:
+    build:
+        path: "work/"
+    #pull: yes
+    name: "ansible-master-{{openstack_ansible_major}}"
+    tag: "{{openstack_ansible_branch.split('/')[-1] }}"
+    #push: yes
+    source: build
+
+- name: Make persisten volume dirs
+  file:
+    name: "{{item}}"
+    state: directory
+  with_items: "{{volumes}}"
+
+
+- name: Run ansibe-master container
+  docker_container:
+    name: "ansible-master-{{openstack_ansible_major}}-{{openstack_env}}"
+    image: "ansible-master-{{openstack_ansible_major}}:{{openstack_ansible_tag}}"
+    state: 'started'
+    volumes: "{{volumes}}"
+
+- name: Create build directory
+  file:
+      path: work/
+      state: absent
